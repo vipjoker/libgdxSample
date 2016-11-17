@@ -1,4 +1,4 @@
-package sample;
+package sample.test;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.*;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
@@ -22,12 +21,12 @@ public class Basic3DTest implements ApplicationListener{
     public Model model;
     public ModelBatch modelBatch;
     public ModelInstance instance;
-    public Environment environment;
+    public sample.test.Environment environment;
     public CameraInputController camController;
     @Override
     public void create() {
 
-        environment = new Environment();
+        environment = new sample.test.Environment();
 //        environment.set(new ColorAttribute(ColorAttribute.AmbientLight,0.4f,0.4f,0.4f,1f));
 //        environment.add(new DirectionalLight().set(0.8f,0.8f,0.8f,-1f,-0.8f,-0.2f));
 
@@ -76,7 +75,7 @@ public class Basic3DTest implements ApplicationListener{
 
         camController.update();
         modelBatch.begin(camera);
-        modelBatch.render(instance,environment);
+       // modelBatch.render(instance,environment);
         modelBatch.end();
     }
 

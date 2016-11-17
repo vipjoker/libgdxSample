@@ -1,4 +1,4 @@
-package sample;
+package sample.test;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
