@@ -12,8 +12,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public abstract class BaseScreen implements Screen,InputProcessor {
 
     protected Game mGame;
-    protected final int viewWidth = 640;
-    protected final int viewHeight = 480;
+    protected final int viewWidth = 1280;
+    protected final int viewHeight = 720;
 
     protected Stage mainStage, uiStage;
     private boolean paused;
