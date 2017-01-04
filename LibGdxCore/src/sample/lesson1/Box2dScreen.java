@@ -6,7 +6,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -31,18 +34,24 @@ public class Box2dScreen extends BaseScreen {
     private Body circle;
     private Label label;
     private ShapeRenderer shapeRenderer;
+    private SpriteBatch batch;
 
     private float b2Height ,b2Width;
 
+    Texture texture;
     public Box2dScreen(Game game) {
         super(game);
     }
-
     @Override
     public void create() {
         mRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
         mCamera = new OrthographicCamera();
+        batch = new SpriteBatch();
+        texture = new Texture("paper.png");
+
+
+
         float coef =  Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
         b2Width = 20;
         b2Height = 20*coef;
@@ -96,8 +105,12 @@ public class Box2dScreen extends BaseScreen {
         mWorld.step(1/60f,6,2);
 
         mRenderer.render(mWorld,mCamera.combined);
-        drawLine();
 
+        drawLine();
+        batch.begin();
+        batch.draw(texture,5,5,30,30);
+
+        batch.end();
         label.setText(String.format("x = %f y = %f \n",circle.getPosition().x,circle.getPosition().y));
 
     }
