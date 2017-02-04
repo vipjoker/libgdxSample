@@ -1,14 +1,13 @@
 package sample.lesson1.objects;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.*;
 
-/**
- * Created by Administrator on 1/3/2017.
- */
-public class Ball extends BaseShape{
 
-    public Ball(World world, float x, float y) {
-        super(world, x, y);
+public class Ball extends BaseShape{
+    public Ball(World world,float x, float y,float width,float height ) {
+        super(world,x, y,width,height);
+
     }
 
     @Override
@@ -23,7 +22,7 @@ public class Ball extends BaseShape{
     protected FixtureDef getFixtureDef() {
         PolygonShape shape = new PolygonShape();
 
-        shape.set(new float[]{0,.2f,  .2f,0,0,-.2f,-.2f,0 });
+        shape.set(generateRoundShape(8));
 
 
 
@@ -35,6 +34,18 @@ public class Ball extends BaseShape{
         fixtureDef.density = .1f;
 
         return fixtureDef;
+    }
+
+    private float[] generateRoundShape(int corners){
+        int angleStep = 360 / corners;
+        int currentAngle = 0;
+        float[] array = new float[corners*2];
+        for (int i = 0; i < corners; i++) {
+            array[2*i] = MathUtils.cosDeg(currentAngle) * width/2;
+            array[2*i+1] = MathUtils.sinDeg(currentAngle) * height/2;
+            currentAngle += angleStep;
+        }
+        return array;
     }
 
 }

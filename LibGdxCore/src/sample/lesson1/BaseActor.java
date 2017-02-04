@@ -33,6 +33,10 @@ public class BaseActor extends Actor {
         region.setRegion(texture);
     }
 
+    public void setPostionWithOrigin(float x,float y){
+        setPosition(x - getWidth()/2,y - getHeight()/2);
+    }
+
     public Rectangle getBoundingRect(){
         boundary.set(getX(),getY(),getWidth(),getHeight());
         return boundary;

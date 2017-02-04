@@ -11,10 +11,21 @@ public abstract class BaseShape {
     protected float x,y;
     protected float [] points;
     protected  boolean isStatic;
+    protected float width,height;
+
     public BaseShape (World world, float x, float y){
 
         this.x = x;
         this.y = y;
+        this.body = world.createBody(getBodyDef());
+        this.body.createFixture(getFixtureDef());
+    }
+
+    public BaseShape(World world,float x, float y , float width,float height){
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.width =width;
         this.body = world.createBody(getBodyDef());
         this.body.createFixture(getFixtureDef());
     }

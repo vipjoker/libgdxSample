@@ -120,7 +120,7 @@ public class MenuScreen extends BaseScreen {
         table.setBackground(white);
         table.setDebug(true);
 
-        table.add(lblStart);
+        table.add(lblStart).expandX().left();
         table.row();
         table.add(lblBox2d);
         table.row();

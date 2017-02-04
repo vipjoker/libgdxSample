@@ -46,7 +46,7 @@ public class CheeseLevel implements Screen {
         mainStage = new Stage();
         uiStage = new Stage();
         floor = new BaseActor();
-        floor.setTexture(new Texture(Gdx.files.internal("cheeseGame/tiles-800-800.jpg")));
+        floor.setTexture(new Texture("cheeseGame/tiles-800-800.jpg"));
         floor.setPosition(0, 0);
         mainStage.addActor(floor);
 

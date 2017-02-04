@@ -15,6 +15,7 @@ public class Main {
         LwjglApplicationConfiguration configuration =new LwjglApplicationConfiguration();
         configuration.width = 1280;
         configuration.height = 720;
+        configuration.samples = 8;
         new LwjglApplication(new CheeseGame(),configuration);
 
 
