@@ -72,6 +72,7 @@ public class MenuScreen extends BaseScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         labelStyle.font = font;
+        labelStyle.fontColor =  new Color(14 / 255f, 95 / 255f, 118 / 255f, 1);
         skin.add("lblStyle", labelStyle);
 
     }

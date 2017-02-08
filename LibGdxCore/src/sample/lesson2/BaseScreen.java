@@ -1,7 +1,9 @@
 package sample.lesson2;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -9,35 +11,32 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * Created by Makhobey Oleh on 7/27/16.
  * email: tajcig@ya.ru
  */
-public abstract class BaseScreen implements Screen,InputProcessor {
+public abstract class BaseScreen implements Screen, InputProcessor {
 
     protected Game mGame;
-    protected final int viewWidth = 1280;
-    protected final int viewHeight = 720;
-
+    protected final int viewWidth = 480;
+    protected final int viewHeight = 800;
+    private ShapeRenderer renderer;
     protected Stage mainStage, uiStage;
     private boolean paused;
 
-    public BaseScreen (Game game){
-        this.mGame  = game;
-        mainStage = new Stage(new FitViewport(viewWidth,viewHeight));
-        uiStage = new Stage(new FitViewport(viewWidth,viewHeight));
-
+    public BaseScreen(Game game) {
+        this.mGame = game;
+        mainStage = new Stage(new FitViewport(viewWidth, viewHeight));
+        uiStage = new Stage(new FitViewport(viewWidth, viewHeight));
+        renderer = new ShapeRenderer();
         paused = false;
 
-        InputMultiplexer multiplexer = new InputMultiplexer(this,uiStage,mainStage);
+        InputMultiplexer multiplexer = new InputMultiplexer(this, uiStage, mainStage);
         Gdx.input.setInputProcessor(multiplexer);
 
         create();
     }
 
 
-
     public abstract void create();
 
     public abstract void update(float dt);
-
-
 
 
     @Override
@@ -88,14 +87,21 @@ public abstract class BaseScreen implements Screen,InputProcessor {
     @Override
     public void render(float delta) {
         uiStage.act(delta);
-        if(!paused){
+        if (!paused) {
             mainStage.act(delta);
             update(delta);
         }
 //
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
+                new Color(14 / 255f, 95 / 255f, 118 / 255f, 1),
+                new Color(14 / 255f, 95 / 255f, 118 / 255f, 1),
+                new Color(215f / 255, 223f / 255, 113f / 255, 1),
+                new Color(215f / 255, 223f / 255, 113f / 255, 1)
+        );
+        renderer.end();
 
 //        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
 //        Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -107,13 +113,10 @@ public abstract class BaseScreen implements Screen,InputProcessor {
     }
 
 
-
-
-
     @Override
     public void resize(int width, int height) {
-        mainStage.getViewport().update(width,height,true);
-        uiStage.getViewport().update(width,height,true);
+        mainStage.getViewport().update(width, height, true);
+        uiStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -137,15 +140,15 @@ public abstract class BaseScreen implements Screen,InputProcessor {
     }
 
 
-    public void setPaused(boolean paused){
+    public void setPaused(boolean paused) {
         this.paused = paused;
     }
 
-    public void togglePaused(){
+    public void togglePaused() {
         paused = !paused;
     }
 
-    public boolean isPaused(){
+    public boolean isPaused() {
         return paused;
     }
 }
