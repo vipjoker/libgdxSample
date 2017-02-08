@@ -119,7 +119,7 @@ public class Box2dScreen extends BaseScreen {
         paper.setPostionWithOrigin( fromBox2d(circle.getPosition().x),fromBox2d( circle.getPosition().y ));
         paper.setRotation(circle.getAngle() * MathUtils.radiansToDegrees);
         if(circle.getLinearVelocity().len() > 0){
-           mStage.addActor(new Particle(paper.getX(),paper.getY()));
+           mStage.addActor(new Particle(paper.getX(),paper.getY(),"circle.png"));
         }
         drawLine();
 
@@ -196,7 +196,7 @@ public class Box2dScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Particle particle = new Particle(screenX, screenY);
+        ZoomParticle particle = new ZoomParticle(screenX, Gdx.graphics.getHeight() - screenY,"border_circle.png",true);
         particle.addAction(Actions.fadeOut(1));
         mStage.addActor(particle);
         return true;

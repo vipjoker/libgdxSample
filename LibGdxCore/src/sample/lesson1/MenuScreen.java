@@ -6,12 +6,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import sample.lesson2.*;
+import sample.lesson2.BaseScreen;
 import sample.lesson2.CheeseMenu;
 
 /**
@@ -21,6 +25,7 @@ import sample.lesson2.CheeseMenu;
 public class MenuScreen extends BaseScreen {
     private Skin skin;
     private Button button;
+
     public MenuScreen(Game game) {
         super(game);
     }
@@ -38,7 +43,7 @@ public class MenuScreen extends BaseScreen {
 
 
         button = new Button(skin, "btnStyle");
-        button.setPosition(100,100);
+        button.setPosition(100, 100);
         mainStage.addActor(button);
         uiStage.addActor(button);
 
@@ -85,12 +90,17 @@ public class MenuScreen extends BaseScreen {
             }
         });
 
-        Label lblBox2d = new Label("Box2d",skin,"lblStyle");
+        Label lblBox2d = new Label("Box2d", skin, "lblStyle");
 
-        lblBox2d.addListener(new InputListener(){
+        lblBox2d.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mGame.setScreen(new Box2dScreen(mGame));
+
+                uiStage.addAction(Actions.sequence(
+                        Actions.moveBy(0,Gdx.graphics.getHeight(), 4,Interpolation.pow3),
+                        Actions.after(Actions.run(() -> mGame.setScreen(new Box2dScreen(mGame))))
+                ));
+
                 return true;
             }
         });
@@ -116,8 +126,8 @@ public class MenuScreen extends BaseScreen {
         Table table = new Table();
         table.setFillParent(true);
 
-        Drawable white = skin.newDrawable("white", Color.valueOf("#137cb4"));
-        table.setBackground(white);
+//        Drawable white = skin.newDrawable("white", Color.valueOf("#137cb4"));
+//        table.setBackground(white);
         table.setDebug(true);
 
         table.add(lblStart).expandX().left();
@@ -138,8 +148,8 @@ public class MenuScreen extends BaseScreen {
 
         Button button = new Button(skin, "btnStyle");
         table.add(button).expandX().pad(20);
-        Drawable yellow = skin.newDrawable("white", Color.valueOf("#ffc000"));
-        table.background(yellow);
+//        Drawable yellow = skin.newDrawable("white", Color.valueOf("#ffc000"));
+//        table.background(yellow);
         table.setX(100);
         table.setY(100);
         return table;
@@ -150,5 +160,17 @@ public class MenuScreen extends BaseScreen {
     public void update(float dt) {
 
 
+    }
+    float counter ;
+    @Override
+    public void render(float delta) {
+        counter+=delta;
+        super.render(delta);
+        if(counter > 0.5) {
+            mainStage.addActor(
+                    new ZoomParticle(MathUtils.random(0, Gdx.graphics.getWidth()), MathUtils.random(0, Gdx.graphics.getHeight()), "border_circle.png", true)
+            );
+            counter =0;
+        }
     }
 }

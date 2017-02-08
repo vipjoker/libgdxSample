@@ -7,16 +7,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
- * Created by Makhobey Oleh on 2/4/17.
+ * Created by Makhobey Oleh on 2/7/17.
  * email: tajcig@ya.ru
  */
-public class Particle extends BaseActor{
+public class ZoomParticle extends BaseActor {
     float time = 0;
     float rotSpeed;
-    public Particle(float x , float y,String path){
+    public ZoomParticle(float x , float y,String path,boolean random){
         super();
         Texture texture = new Texture(path);
-
+        if(random)setColor(new Color(.7f,MathUtils.random(),0.7f,1f));
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         setWidth(50);
         setHeight(50);
@@ -36,7 +36,7 @@ public class Particle extends BaseActor{
             time = 0;
             remove();
         }else {
-            setScale(1-time);
+            setScale(1+time);
             getColor().a = 1 - time;
 
             super.draw(batch, parentAlpha);
