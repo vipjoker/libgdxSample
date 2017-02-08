@@ -121,7 +121,16 @@ public class MenuScreen extends BaseScreen {
                 return true;
             }
         });
-        Label lblAbout = new Label("About", skin, "lblStyle");
+        Label lblAbout = new Label("Ovarlap", skin, "lblStyle");
+        lblAbout.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                mGame.setScreen(new OverlapScreen(mGame));
+                return true;
+            }
+        });
+
+
         Label lblExit = new Label("Exit", skin, "lblStyle");
 
         Table table = new Table();
