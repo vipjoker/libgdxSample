@@ -13,7 +13,7 @@ public class CheeseGame extends Game{
 //        CheeseMenu menu = new CheeseMenu(this);
 
         MenuScreen menu = new MenuScreen(this);
-
-        setScreen(menu);
+        EditorScreen editor = new EditorScreen(this);
+        setScreen(editor);
     }
 }
